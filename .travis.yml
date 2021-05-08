@@ -1,0 +1,25 @@
+language: node_js
+node_js:
+    - 10.22.1
+
+services:
+    - docker
+
+# Pre-testing installs
+install:
+    - echo "nothing needs to be installed"
+
+# Scripts to be run such as tests
+before_script:
+    - echo "no tests"
+  
+
+script:
+    - docker build -t user-api .
+    - docker tag user-api anuardocker/user-api:latest
+
+deploy:
+    provider: script
+    script: bash docker_push
+    on:
+        branch: main
